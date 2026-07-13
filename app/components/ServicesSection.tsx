@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -101,6 +101,30 @@ const formats = [
 
 export function ServicesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  // Only start fetching these images once the user has scrolled past the
+  // hero "video" and reached the manifesto (second) section — avoids
+  // competing with the hero frames for bandwidth on initial load.
+  const [canPreload, setCanPreload] = useState(false);
+
+  useEffect(() => {
+    const el = document.getElementById("manifesto");
+    if (!el) {
+      setCanPreload(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCanPreload(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -110,18 +134,21 @@ export function ServicesSection() {
     >
       {/* Preload every hero image up front, at the same fill/100vw size the
           open panel renders it at, so it's already cached by the time a
-          closed card is clicked and its panel expands. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-0 h-[480px] w-full overflow-hidden opacity-0"
-        style={{ top: -99999 }}
-      >
-        {services.map((s) => (
-          <div key={s.hero} className="relative h-full w-full">
-            <Image src={s.hero} alt="" fill sizes="100vw" priority />
-          </div>
-        ))}
-      </div>
+          closed card is clicked and its panel expands. Deferred until the
+          user has scrolled past the hero and into the manifesto section. */}
+      {canPreload && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-0 h-[480px] w-full overflow-hidden opacity-0"
+          style={{ top: -99999 }}
+        >
+          {services.map((s) => (
+            <div key={s.hero} className="relative h-full w-full">
+              <Image src={s.hero} alt="" fill sizes="100vw" priority />
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <div className="mb-20 grid grid-cols-1 gap-10 md:grid-cols-12">

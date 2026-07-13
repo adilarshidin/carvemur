@@ -115,6 +115,7 @@ export default function ScatterManifesto({
   return (
     <section
       ref={sectionRef}
+      id="manifesto"
       className="relative w-full"
       style={{ height, zIndex: 30 }}
     >
