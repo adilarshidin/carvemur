@@ -37,7 +37,7 @@ const services: Service[] = [
     headlineTop: "CARBÓN DE",
     headlineBottom: "ENCINA",
     shortBody:
-      "Producto nacional de alta calidad, elaborado a partir de madera de encina procesada. Su aroma distintivo y agradable lo convierte en una excelente opción para barbacoas y asados.",
+      "Producto nacional de aroma distintivo, elaborado con madera de encina. La opción de referencia para barbacoas y asados.",
     stat: "780 Kcal/Kg",
     statLabel: "Combustión de 2 a 3 horas",
     hero: img.encinaHero,
@@ -50,7 +50,7 @@ const services: Service[] = [
     headlineTop: "QUEBRACHO",
     headlineBottom: "BLANCO",
     shortBody:
-      "Madera dura que produce un carbón excepcionalmente denso y duradero. No humea ni chispea, ideal para uso en interiores o en parrillas profesionales que requieren control total sobre la cocción.",
+      "Madera dura, brasa densa y duradera. No humea ni chispea: control total para interiores y parrillas profesionales.",
     stat: "9500 Kcal/Kg",
     statLabel: "Combustión de 4 a 5 horas",
     hero: img.quebrachoHero,
@@ -63,7 +63,7 @@ const services: Service[] = [
     headlineTop: "CARBÓN DE",
     headlineBottom: "MARABÚ",
     shortBody:
-      "Se destaca por su sonido metálico al ser golpeado, señal de su alta densidad y calidad. Especialmente valorado por su rendimiento prolongado, ideal para una combustión sostenida y eficiente.",
+      "Sonido metálico, densidad excepcional. Rendimiento prolongado para una brasa sostenida y eficiente.",
     stat: "9000 Kcal/Kg",
     statLabel: "Combustión de 4 a 5 horas",
     hero: img.marabuHero,
@@ -76,7 +76,7 @@ const services: Service[] = [
     headlineTop: "PALO ROSA",
     headlineBottom: "Y SHISHA",
     shortBody:
-      "Categoría premium conocida por su excepcional durabilidad y eficiencia. Popular entre entusiastas de parrillas y shishas por mantener un calor constante durante sesiones largas.",
+      "Categoría premium: durabilidad y eficiencia máximas. Calor constante para sesiones largas de parrilla o shisha.",
     stat: "9800 Kcal/Kg",
     statLabel: "Combustión de 4 a 5 horas",
     hero: img.paloRosa,
@@ -136,15 +136,10 @@ export function ServicesSection() {
           </h2>
           <div className="md:col-span-6 md:col-start-7">
             <p className="mt-2 max-w-[58ch] text-[clamp(1rem,1.1vw,1.1rem)] font-light leading-[1.65] text-neutral-500">
-              En Fuego y Tierra ofrecemos carbón vegetal de excelente
-              calidad, producido en España e importado desde Cuba,
-              elaborado para satisfacer nuestros exigentes estándares.
-              Vendemos a cualquier tipo de cliente, pero nos enfocamos
-              principalmente en hostelería y particulares que buscan un
-              producto superior para sus barbacoas y eventos. Cada pedido
-              mínimo es de 5 sacos, asegurando siempre la disponibilidad y
-              la satisfacción de nuestros clientes. Toca un tipo de carbón
-              para verlo abierto.
+              Carbón vegetal de excelente calidad, producido en España e
+              importado desde Cuba. Servimos a hostelería y particulares
+              que buscan un producto superior, con pedido mínimo de 5
+              sacos. Toca un tipo de carbón para verlo abierto.
             </p>
           </div>
         </div>
