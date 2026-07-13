@@ -19,7 +19,7 @@ export default function HeroScrubber() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const currentFrameRef = useRef(0);
   const [loadedCount, setLoadedCount] = useState(0);
-  const ready = loadedCount === FRAME_COUNT;
+  const ready = loadedCount > 0;
 
   const drawFrame = useCallback((index: number) => {
     const canvas = canvasRef.current;
