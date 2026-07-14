@@ -18,6 +18,7 @@ export default function HeroScrubber() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const currentFrameRef = useRef(0);
+  const overlayRef = useRef<HTMLDivElement>(null);
   const [loadedCount, setLoadedCount] = useState(0);
   const ready = loadedCount > 0;
 
@@ -66,6 +67,14 @@ export default function HeroScrubber() {
 
     currentFrameRef.current = frameIndex;
     drawFrame(frameIndex);
+
+    // Logo and scroll-hint fade out over the first bit of scrubbing.
+    const overlay = overlayRef.current;
+    if (overlay) {
+      const overlayOpacity = 1 - clamp(progress / 0.08, 0, 1);
+      overlay.style.opacity = String(overlayOpacity);
+      overlay.style.pointerEvents = overlayOpacity < 0.05 ? "none" : "auto";
+    }
   }, [drawFrame]);
 
   const resizeCanvas = useCallback(() => {
@@ -105,9 +114,20 @@ export default function HeroScrubber() {
     return () => window.removeEventListener("resize", resizeCanvas);
   }, [resizeCanvas]);
 
-  useLenis(() => {
+  const lenis = useLenis(() => {
     updateFrame();
   }, [updateFrame]);
+
+  const handleScrollDown = useCallback(() => {
+    const target = containerRef.current
+      ? containerRef.current.offsetTop + window.innerHeight
+      : window.innerHeight;
+    if (lenis) {
+      lenis.scrollTo(target, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: target, behavior: "smooth" });
+    }
+  }, [lenis]);
 
   const loadingProgress = Math.round((loadedCount / FRAME_COUNT) * 100);
 
@@ -120,6 +140,27 @@ export default function HeroScrubber() {
             Loading {loadingProgress}%
           </div>
         )}
+
+        <div ref={overlayRef} className="absolute inset-0">
+          <button
+            type="button"
+            onClick={handleScrollDown}
+            aria-label="Desplázate hacia abajo"
+            className="group absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 transition-colors hover:text-white"
+          >
+            <svg
+              className="h-7 w-7 animate-bounce md:h-8 md:w-8"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.5}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 4v15M5 12l7 7 7-7" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );
