@@ -132,7 +132,11 @@ export default function HeroScrubber() {
   const loadingProgress = Math.round((loadedCount / FRAME_COUNT) * 100);
 
   return (
-    <div ref={containerRef} className="relative h-[500vh] w-full bg-black">
+    <div
+      ref={containerRef}
+      id="hero"
+      className="relative h-[500vh] w-full bg-black"
+    >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <canvas ref={canvasRef} className="block h-full w-full" />
         {!ready && (
